@@ -10,8 +10,7 @@ namespace Logmew
 		private static Regex reUnityDebugLog = new Regex(@"^[\S\s]*?UnityEngine\.Debug:(Log|Assert)[^\n]+\n");
 		private static Regex reUnityMethod = new Regex(@":(?=\D)");
 		private static Regex reMethod = new Regex(@"^\s+at ", RegexOptions.Multiline);
-		private static Regex reLocation = new Regex(@" in ([^:]+):line (\d+)\s*$", RegexOptions.Multiline);
-		private static Regex reLocation2 = new Regex(@" in ([^:]+):(\d+)\s*$", RegexOptions.Multiline);
+		private static Regex reLocation  = new Regex(@" (?:\(at|in) ([^:]+):(?:line )?(\d+)\s*\)?$", RegexOptions.Multiline);
 
 		/// <summary>
 		/// Static constructor.
@@ -38,7 +37,6 @@ namespace Logmew
 				}
 				stackTrace = reMethod.Replace(stackTrace, "");
 				stackTrace = reLocation.Replace(stackTrace, "@$1:$2 ");
-				stackTrace = reLocation2.Replace(stackTrace, "@$1:$2 ");
 			}
 			stackTrace = stackTrace.TrimEnd();
 

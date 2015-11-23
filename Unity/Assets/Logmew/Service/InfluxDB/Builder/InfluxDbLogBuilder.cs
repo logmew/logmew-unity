@@ -73,8 +73,9 @@ namespace Logmew.Service.InfluxDb
 			appendField(writer, " message", logEntry.Message);
 
 			// logEntry.StackTrace
-			if (!string.IsNullOrEmpty(logEntry.StackTrace)) {
-				appendField(writer, ",stackTrace", logEntry.StackTrace);
+			var stackTrace = logEntry.StackTrace;
+			if (!string.IsNullOrEmpty(stackTrace)) {
+				appendField(writer, ",stackTrace", stackTrace);
 			}
 
 			// Timestamp
